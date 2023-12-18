@@ -6,7 +6,9 @@ extension HTTPResponse {
         guard let httpResponse = urlResponse as? HTTPURLResponse else {
             throw FoundationClientTransportError.notHTTPResponse(urlResponse)
         }
+
         var headerFields = HTTPFields()
+
         for (headerName, headerValue) in httpResponse.allHeaderFields {
             guard let rawName = headerName as? String, let name = HTTPField.Name(rawName),
                   let value = headerValue as? String
@@ -15,6 +17,7 @@ extension HTTPResponse {
             }
             headerFields[name] = value
         }
+
         self.init(status: .init(code: httpResponse.statusCode), headerFields: headerFields)
     }
 }
