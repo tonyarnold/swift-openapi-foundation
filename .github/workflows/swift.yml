@@ -12,21 +12,19 @@ on:
 jobs:
   build:
     name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-13]
-        swift: ["5.9"]
-    runs-on: ${{ matrix.os }}
+        os: [ubuntu-latest, macos-latest]
+        swift: ["5.9", "5.10"]
     steps:
-      - name: Xcode Select Version
-        uses: mobiledevops/xcode-select-version-action@v1
-        with:
-          xcode-select-version: 15.0.1
-      - uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: ${{ matrix.swift }}
-      - uses: actions/checkout@v4
-      - name: Build
-        run: swift build
+    - uses: SwiftyLab/setup-swift@latest
+      with:
+        swift-version: ${{ matrix.swift }}
+    - name: Get swift version
+      run: swift --version
+    - uses: actions/checkout@v4
+    - name: Build
+      run: swift build
 #      - name: Run tests
 #        run: swift test
