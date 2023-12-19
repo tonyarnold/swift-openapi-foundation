@@ -26,7 +26,7 @@ Next, in your target, add `OpenAPIURLSession` to your dependencies:
 ]),
 ```
 
-Then, to get started, check out `URLSessionTransport`.
+Then, to get started, check out `FoundationClientTransport`.
 
 ## Examples
 
